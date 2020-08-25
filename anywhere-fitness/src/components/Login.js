@@ -9,11 +9,10 @@ export default function Login() {
     email: '',
     password: '',
     position: '',
-    terms: false
   };
   const [formState, setFormState] = useState(defaultState);
-  const [errors, setErrors] = useState({ ...defaultState, terms: '' });
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [errors, setErrors] = useState({ ...defaultState});
+  // const [buttonDisabled, setButtonDisabled] = useState(true);
 
   let formSchema = yup.object().shape({
     name: yup.string().required('Please provide name.'),
@@ -25,16 +24,13 @@ export default function Login() {
       .string()
       .required('That was an incorrect password. Try again.'),
     position: yup.string(),
-    terms: yup
-      .boolean()
-      .oneOf([true], 'Please agree to the terms and conditions')
   });
 
-  useEffect(() => {
-    if (formState.terms) {
-      setButtonDisabled(!formState.terms);
-    }
-  }, [formState]);
+  // useEffect(() => {
+  //   if (formState.terms) {
+  //     setButtonDisabled(!formState.terms);
+  //   }
+  // }, [formState]);
 
   const formSubmit = e => {
     e.preventDefault();
