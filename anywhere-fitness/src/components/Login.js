@@ -83,11 +83,7 @@ export default function Login() {
         label='Password'
         errors={errors}
       />
-      <label className='terms' htmlFor='terms'>
-        <input name='terms' type='checkbox' onChange={inputChange} />
-        Terms & Conditions
-      </label>
-      <button disabled={buttonDisabled}>Submit</button>
+      <button>Submit</button>
     </form>
   );
 }
