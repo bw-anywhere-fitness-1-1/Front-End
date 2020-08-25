@@ -1,14 +1,13 @@
 import React from 'react'
+import CreateClass from './create-class'
 
-const iDashboard = () => {
-    const [classes, setClasses] = useState ([])
+const IDashboard = () => {
 
     return (
         <div>
-            <
-            <
+            <CreateClass />
         </div>
     )
 }
 
-export default iDashboard
+export default IDashboard
