@@ -4,4 +4,4 @@ const workoutCard = () => {
 
 }
 
-export default workoutCard 
+export default workoutCard
