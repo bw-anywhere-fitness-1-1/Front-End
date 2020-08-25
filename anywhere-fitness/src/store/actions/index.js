@@ -72,7 +72,7 @@ export const removeClass = () => {
     return dispatch => {
         dispatch({ type: REMOVE_CLASS_START })
         axiosWithAuth()
-            .post()
+            .delete()
             .then(res => {
                 dispatch({ type: REMOVE_CLASS_SUCCESS })
             })
