@@ -8,8 +8,14 @@ export const GET_CLASSES_START = 'GET_CLASSES_START'
 export const GET_CLASSES_SUCCESS = 'GET_CLASSES_SUCCESS'
 export const GET_CLASSES_FAILURE = 'GET_CLASSES_FAILURE'
 
-export const ADD_CLASS = 'ADD_CLASS'
-export const REMOVE_CLASS = 'REMOVE_CLASS'
+export const ADD_CLASS_START = 'ADD_CLASS_START'
+export const ADD_CLASS_SUCCESS = 'ADD_CLASS_SUCCESS'
+export const ADD_CLASS_FAILURE = 'ADD_CLASS_FAILURE'
+
+export const REMOVE_CLASS_START = 'REMOVE_CLASS_START'
+export const REMOVE_CLASS_SUCCESS = 'REMOVE_CLASS_SUCCESS'
+export const REMOVE_CLASS_FAILURE = 'REMOVE_CLASS_FAILURE'
+
 
 export const login = (user) => (dispatch) => {
     dispatch({ type: LOGIN_START });
@@ -22,7 +28,6 @@ export const login = (user) => (dispatch) => {
                 .get(`/${role}/classes/all`)
                 .then((res) => {
                     dispatch({ type: LOGIN_SUCCESS, payload: res.data.data });
-                    // console.log(res)
                 })
                 .catch((err) => {
                     console.log(err);
@@ -32,3 +37,48 @@ export const login = (user) => (dispatch) => {
             dispatch({ type: LOGIN_FAILURE, payload: err.response.data.message })
         );
 };
+
+export const getClasses = () => {
+    return dispatch => {
+        dispatch({ type: GET_CLASSES_START })
+        axiosWithAuth()
+            .post()
+            .then(res => {
+                dispatch({ type: GET_CLASSES_SUCCESS })
+            })
+            .catch(err => {
+                console.log(err)
+                dispatch({ type: GET_CLASSES_FAILURE })
+            })
+    }
+}
+
+export const addClass = () => {
+    return dispatch => {
+        dispatch({ type: ADD_CLASS_START })
+        axiosWithAuth()
+            .post()
+            .then(res => {
+                dispatch({ type: ADD_CLASS_SUCCESS })
+            })
+            .catch(err => {
+                console.log(err)
+                dispatch({ type: ADD_CLASS_FAILURE })
+            })
+    }
+}
+
+export const removeClass = () => {
+    return dispatch => {
+        dispatch({ type: REMOVE_CLASS_START })
+        axiosWithAuth()
+            .post()
+            .then(res => {
+                dispatch({ type: REMOVE_CLASS_SUCCESS })
+            })
+            .catch(err => {
+                console.log(err)
+                dispatch({ type: REMOVE_CLASS_FAILURE })
+            })
+    }
+}
