@@ -26,26 +26,37 @@ const formSchema = yup.object().shape({
 const CreateClass = (props) => {
     const [isDisabled, setDisabled] = useState(true)
     const [formState, setFormState] = useState({
-        classname: '',
-        date: '',
-        time: '',
+        name: '',
+        classDate: '',
+        startTime: '',
         duration: '',
-        classtype: '',
+        type: '',
         intensityLevel: '',
         location: '',
-        currentAttendeesNo: 0,
-        maxsize: 0,
+        currentRegistered: 0,
+        maxClassSize: 0,
+        instructor: ''
     })
+    const savePost = e => {
+        e.preventDefault()
+        axiosWithAuth()
+        .post('https://bw-fitness-anywhere.herokuapp.com/api/classes',formState )
+        .then( res => {
+            console.log(res)
+     })
+        .catch( err => console.log(err))
+    }
     const [errorState, setErrorState] = useState({
-        classname: '*',
-        date: '*',
-        time: '*',
+        name: '*',
+        classDate: '*',
+        startTime: '*',
         duration: '*',
-        classtype: '*',
+        type: '*',
         intensityLevel: '*',
         location: '*',
-        currentAttendeesNo: '*',
-        maxsize: '*',
+        currentRegistered: '*',
+        maxClassSize: '*',
+        instructor: '*'
     })
 
     const validate = (e) => {
@@ -174,11 +185,11 @@ const CreateClass = (props) => {
                                 name='intensityLevel'
                                 id='intensityLevel'
                                 onChange={inputChange}>
-                                <option value=''>N/A</option>
-                                <option value='easy'>easy</option>
-                                <option value='Medium'>Medium</option>
-                                <option value='Hard'>Hard</option>
-                                <option value='Psycho Path'>Psycho Path</option>
+                                <option value='0'>N/A</option>
+                                <option value='1'>easy</option>
+                                <option value='2'>Medium</option>
+                                <option value='3'>Hard</option>
+                                <option value='4'>Psycho Path</option>
                             </Select>
                             {errorState.intensityLevel ? <Error>{errorState.Intensity}</Error> : null}
                         </SelectContainer>
@@ -232,7 +243,7 @@ const CreateClass = (props) => {
                     </label>
 
                 </FormAlign>
-                <Button disabled={isDisabled} onClick={() => ToastsStore.success(`Class Created`)}>Submit</Button>
+                <Button  disabled={isDisabled} onClick={savePost}>Submit</Button>
                 <ToastsContainer store={ToastsStore} />
             </Form>
         </div>
