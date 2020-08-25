@@ -1,7 +1,10 @@
 import React from 'react'
 
-const cDashboard = () => {
-
+const CDashboard = () => {
+    return (
+        <div>
+        </div>
+    )
 }
 
-export default cDashboard
+export default CDashboard
