@@ -1,63 +1,19 @@
-import React, { useRef, createRef, useState} from 'react';
-import './App.css';
-import InputField from './components/inputField';
+import React from 'react';
+import './styles.css';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-function App() {
-  const inputRefs = useRef([
-    createRef(), createRef()
-  ]);
+import Nav from './components/Nav'
+import Form from './components/Form';
+import Login from './components/Login'
 
-  const [data, setData] = useState({});
-
-  const handleChange = (name, value) => {
-    setData(prev => ({ ...prev, [name]: value }))
-  }
-
-  const submitForm = (e) => {
-    e.preventDefault();
-
-    let isValid = true;
-
-    for (let i = 0; i < inputRefs.current.length; i++) {
-      const valid = inputRefs.current[i].current.validate()
-      console.log(valid)
-      if (!valid) {
-        isValid = false
-      }
-    }
-
-    if (!isValid) {
-      return
-    }
-
-    console.log('Logged In');
-    //Carry on as normal
-  }
-
+export default function App() {
   return (
-    <div className='App'>
-      <form onSubmit={submitForm} className='form'>
-        <h1>Log In</h1>
-        <InputField
-          ref={inputRefs.current[0]}
-          name='username'
-          label='Username*:'
-          type='text'
-          onChange={handleChange}
-          validation={'required|min:6|max:12'}
-        />
-        <InputField
-          ref={inputRefs.current[1]}
-          name='password'
-          label='Password*:'
-          type='password'
-          validation='required|min:6'
-          onChange={handleChange}
-        />
-        <button type='submit'>Login</button>
-      </form>
-    </div>
+    <Router>
+      <div className='App'>
+        <Nav />
+        <Route exact path='/' component={Login} />
+        <Route path='/Form' component={Form} />
+      </div>
+    </Router>
   );
 }
-
-export default App;
