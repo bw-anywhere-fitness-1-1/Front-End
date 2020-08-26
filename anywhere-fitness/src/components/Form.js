@@ -88,8 +88,8 @@ export default function Form() {
       <label htmlFor='position'>
         What role are you interested in?
         <select name='position' onChange={inputChange}>
-          <option value='Newsletter'>Instructor</option>
-          <option value='Yard Work'>Client</option>
+          <option value='Instructor'>Instructor</option>
+          <option value='Client'>Client</option>
         </select>
       </label>
       <label className='terms' htmlFor='terms'>
