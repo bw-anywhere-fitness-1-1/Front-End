@@ -1,6 +1,6 @@
 import React from 'react'
 import CreateClass from './create-class'
-import ClassCard from 
+import ClassCard from './class-card'
 
 const WorkoutCard = () => {
     const [classes, setClasses] = useState([]);
