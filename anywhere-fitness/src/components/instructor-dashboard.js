@@ -1,13 +1,13 @@
 import React from 'react'
 import CreateClass from './create-class'
-import WorkoutCard from './class-card'
+import EditClasses from './edit-class'
 
 const IDashboard = () => {
 
     return (
         <div>
             <CreateClass />
-            <WorkoutCard />
+            <EditClasses />
         </div>
     )
 }

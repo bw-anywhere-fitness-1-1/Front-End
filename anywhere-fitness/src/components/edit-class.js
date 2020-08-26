@@ -4,11 +4,11 @@ import React, { useState } from 'react'
 const EditClasses = (props) => {
     const [formState, setFormState] = useState({
         id: props.details.id,
-        classname: props.details.classname,
+        name: props.details.name,
         date: props.details.date,
         time: props.details.time,
         duration: props.details.duration,
-        classtype: props.details.classtype,
+        type: props.details.type,
         intensityLevel: props.details.intensityLevel,
         location: props.details.location,
         currentAttendeesNo: props.details.currentAttendeesNo,
