@@ -5,10 +5,10 @@ import axios from 'axios';
 
 export default function Form() {
   const defaultState = {
-    name: '',
+    username: '',
     email: '',
     password: '',
-    position: '',
+    authCode: '',
     terms: false
   };
   const [formState, setFormState] = useState(defaultState);
@@ -17,7 +17,7 @@ export default function Form() {
 
   
   let formSchema = yup.object().shape({
-    name: yup.string().required('Please provide name.'),
+    username: yup.string().required('Please provide name.'),
     email: yup.string().required('Please provide a email.').email('This is not a valid email.'),
     motivation: yup.string().required('Please state why you are interested in volunteering.'),
     position: yup.string(),
@@ -34,8 +34,8 @@ export default function Form() {
     e.preventDefault();
     console.log('form submitted!');
     axios
-      .post('https://reqres.in/api/users', formState)
-      .then(() => console.log('form submitted success'))
+      .post('/auth/register', { username: formState.username , password: formState.password, email: formState.email, authCode: 222})
+      .then((res) => console.log(res))
       .catch(err => console.log(err));
   };
 
@@ -63,9 +63,9 @@ export default function Form() {
     <form onSubmit={formSubmit}>
       <Input
         type='text'
-        name='name'
+        name='username'
         onChange={inputChange}
-        value={formState.name}
+        value={formState.username}
         label='Name'
         errors={errors}
       />
@@ -87,9 +87,9 @@ export default function Form() {
       />
       <label htmlFor='position'>
         What role are you interested in?
-        <select name='position' onChange={inputChange}>
-          <option value='Instructor'>Instructor</option>
-          <option value='Client'>Client</option>
+        <select name='authCode' onChange={inputChange}>
+          <option value='222'>Instructor</option>
+          <option value='111'>Client</option>
         </select>
       </label>
       <label className='terms' htmlFor='terms'>

@@ -2,20 +2,19 @@ import React, { useState } from 'react';
 import Input from './Input';
 import * as yup from 'yup';
 import axios from 'axios';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 export default function Login() {
   const defaultState = {
-    name: '',
-    email: '',
+    username: '',
     password: '',
-    position: '',
   };
   const [formState, setFormState] = useState(defaultState);
   const [errors, setErrors] = useState({ ...defaultState});
   // const [buttonDisabled, setButtonDisabled] = useState(true);
 
   let formSchema = yup.object().shape({
-    name: yup.string().required('Please provide name.'),
+    username: yup.string().required('Please provide name.'),
     email: yup
       .string()
       .required('Please provide a email.')
@@ -32,13 +31,12 @@ export default function Login() {
   //   }
   // }, [formState]);
 
-  const formSubmit = e => {
+  const formSubmit = (e) => {
     e.preventDefault();
-    console.log('form submitted!');
     axios
-      .post('https://reqres.in/api/users', formState)
-      .then(() => console.log('form submitted success'))
-      .catch(err => console.log(err));
+      .post("/auth/login", { username: formState.username, password: formState.password })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
   };
 
   const validateChange = e => {
@@ -64,18 +62,18 @@ export default function Login() {
   return (
     <form onSubmit={formSubmit}>
       <Input
-        type='email'
-        name='email'
+        type='text'
+        name='username'
         onChange={inputChange}
-        value={formState.email}
-        label='Email'
+        value={formState.username}
+        label='username'
         errors={errors}
       />
       <Input
         type='password'
         name='password'
         onChange={inputChange}
-        value={formState.motivation}
+        value={formState.password}
         label='Password'
         errors={errors}
       />
