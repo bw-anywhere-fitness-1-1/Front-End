@@ -4,7 +4,8 @@ import ClassCard from './class-card'
 const CDashboard = () => {
     return (
         <div>
-            <ClassCard />
+            <h1>Hi</h1> 
+            {/* <ClassCard /> */}
         </div>
     )
 }
