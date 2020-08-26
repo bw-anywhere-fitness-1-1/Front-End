@@ -39,3 +39,9 @@ export const login = (user) => (dispatch) => {
             dispatch({ type: LOGIN_FAILURE, payload: err.response.data.message })
         );
 };
+
+export const getClasses = (dispatch) => {
+    dispatch({ type: GET_CLASSES_START })
+    return axiosWithAuth()
+        .get('/classes')
+}
