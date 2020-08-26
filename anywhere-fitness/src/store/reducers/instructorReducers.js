@@ -3,15 +3,16 @@ import * as act from '../actions'
 //set up initial state 
 const initialState = {
     classes: [{
-        name: "",
-        startDate: "",
-        duration: "",
-        time: "",
-        type: "",
-        Intensity: "",
-        Location: "",
-        currentNumber: 0,
-        maxMembers: 0,
+        name: '',
+        classDate: '',
+        startTime: '',
+        duration: '',
+        type: '',
+        intensityLevel: '',
+        location: '',
+        currentRegistered: 0,
+        maxClassSize: 0,
+        instructor: ''
     }],
     isFetching: false
 }
