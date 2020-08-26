@@ -3,8 +3,10 @@ import Input from './Input';
 import * as yup from 'yup';
 import axios from 'axios';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { connect } from 'react-redux'
+import { login } from '../store/actions/index'
 
-export default function Login() {
+const Login = props => {
   const defaultState = {
     username: '',
     password: '',
@@ -33,10 +35,11 @@ export default function Login() {
 
   const formSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("/auth/login", { username: formState.username, password: formState.password })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err))
+    props.login({ username: formState.username, password: formState.password })
+    // axios
+    //   .post("/auth/login", { username: formState.username, password: formState.password })
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err))
   };
 
   const validateChange = e => {
@@ -81,3 +84,12 @@ export default function Login() {
     </form>
   );
 }
+
+const mapStateToProps = state => {
+  return{
+    classes: state.classes,
+    isFetching: state.isFetching
+  }
+}
+
+export default connect(mapStateToProps,{login})(Login)
