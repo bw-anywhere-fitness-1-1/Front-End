@@ -5,7 +5,7 @@ const CDashboard = () => {
     return (
         <div>
             <h1>Hi</h1> 
-            {/* <ClassCard /> */}
+            <ClassCard />
         </div>
     )
 }

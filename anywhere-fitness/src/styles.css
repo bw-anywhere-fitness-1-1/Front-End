@@ -43,7 +43,7 @@ textarea {
   margin: 5px 0 0;
   display: block;
   width: 100%;
-  border: 2px solid rgba(0, 0, 0, 0.2);
+  border: 2px solid #5a5c51;
   border-radius: 5px;
   padding: 10px;
   transition: all 0.3s;
@@ -58,12 +58,12 @@ select {
 
 select:focus {
   outline: none;
-  border-color: #1ee7e2;
+  border-color:  #bcd5d1;
 }
 
 input:focus {
   outline: none;
-  border-color: #1ee7e2;
+  border-color: #5a5c51;
 }
 
 input:placeholder {
@@ -80,16 +80,16 @@ button {
   border-radius: 5px;
   letter-spacing: 2px;
   outline: none;
-  background-color: #4dd0e1;
-  background-image: linear-gradient(to right, #4dd0e1, #1ee7e2);
+  background-color: #1d2120;
+  background-image: linear-gradient(to right, #bcd5d1, #1d2120);
   color: #fff;
   cursor: pointer;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
-  background-image: none;
-  background-color: #4dd0e1;
+  background-image: #1d2120;
+  background-color: #bcd5d1;
   box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -103,7 +103,7 @@ button:disabled {
 
 .error {
   font-size: 1.2rem;
-  color: red;
+  color: crimson;
 }
 
 .terms {
