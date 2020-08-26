@@ -222,4 +222,4 @@ const CreateClass = (props) => {
         </div>
     )
 }
-export default CreateClass
+export default CreateClass 

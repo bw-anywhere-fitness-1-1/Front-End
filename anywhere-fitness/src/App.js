@@ -6,7 +6,8 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Nav from './components/Nav'
 import Form from './components/Form';
 import Login from './components/Login'
-import CreateClass from './components/CreateClass'
+import CreateClass from './components/create-class'
+
 
 export default function App() {
   return (
