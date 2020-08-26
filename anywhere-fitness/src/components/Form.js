@@ -30,11 +30,13 @@ export default function Form() {
     }
   }, [formState]);
 
+  const correctFormState = { username: formState.username , password: formState.password, email: formState.email, authCode: 222 }
+
   const formSubmit = e => {
     e.preventDefault();
     console.log('form submitted!');
     axios
-      .post('/auth/register', { username: formState.username , password: formState.password, email: formState.email, authCode: 222})
+      .post('/auth/register', correctFormState)
       .then((res) => console.log(res))
       .catch(err => console.log(err));
   };

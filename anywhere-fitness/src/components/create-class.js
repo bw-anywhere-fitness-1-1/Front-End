@@ -175,7 +175,6 @@ const CreateClass = (props) => {
                                 <option value='1'>easy</option>
                                 <option value='2'>Medium</option>
                                 <option value='3'>Hard</option>
-                                <option value='4'>Psycho Path</option>
                             </select>
                             {errorState.intensityLevel ? <p>{errorState.Intensity}</p> : null}
                     </label>

@@ -26,7 +26,7 @@ export const login = (user) => (dispatch) => {
             localStorage.setItem("token", res.data.token);
             const { role } = jwt_decode(res.data.token);
             axiosWithAuth()
-                .get(`/${role}/classes/all`)
+                .get(`/classes`)
                 .then((res) => {
                     dispatch({ type: LOGIN_SUCCESS, payload: res.data.data });
                     
