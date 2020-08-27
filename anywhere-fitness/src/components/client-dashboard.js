@@ -4,7 +4,7 @@ import ClassCard from './class-card'
 const CDashboard = () => {
     return (
         <div>
-            <h1>Hi</h1> 
+            <h1>Today's Classes</h1> 
             <ClassCard />
         </div>
     )

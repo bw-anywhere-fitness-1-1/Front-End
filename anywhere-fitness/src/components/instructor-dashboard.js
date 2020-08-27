@@ -6,7 +6,9 @@ const IDashboard = () => {
 
     return (
         <div>
+            <h2>Create A Class</h2>
             <CreateClass />
+            <h2>Edit Class</h2>
             <EditClasses />
         </div>
     )
