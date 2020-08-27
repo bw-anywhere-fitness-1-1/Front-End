@@ -29,7 +29,6 @@ export const login = (user) => (dispatch) => {
                 .get(`/classes`)
                 .then((res) => {
                     dispatch({ type: LOGIN_SUCCESS, payload: res.data.data });
-                    
                 })
                 .catch((err) => {
                     console.log(err);
