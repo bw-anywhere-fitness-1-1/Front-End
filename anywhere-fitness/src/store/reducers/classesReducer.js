@@ -4,6 +4,7 @@ import { GET_CLASSES_START, GET_CLASSES_SUCCESS, GET_CLASSES_FAILURE } from "../
 const initialState = {
 
     isFetching: false,
+    classes: []
 };
 
 // reducers

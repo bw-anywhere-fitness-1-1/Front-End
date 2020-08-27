@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { getClasses } from '../store/actions/index'
 
 function ClassCard(props) {
- 
+
   const [editing, setEditing] = useState(false)
   const [classToEdit, setClassToEdit] = useState(props)
   const token = localStorage.getItem('token')
@@ -51,34 +51,33 @@ function ClassCard(props) {
       .then((res) => { window.location.reload() })
       .catch(err => console.log(err))
   }
-  useEffect()
-console.log(props.details)
+ 
     return (
       
     <div>
-      <h3>Class Name: {props.details}</h3>
-      <p>Location: {props.details}</p>
-      <p>Date: {props.details}</p>
-      <p>Time: {props.details}</p>
-      <p>Class Type: {props.details}</p>
-      <p>Duration: {props.details}</p>
-      <p>IntensityLevel: {props.details}</p>
-      <p>Current Attendees Number: {props.details}</p>
-      <p>Max Size: {props.details}</p>
-      <p>Instuctor: {props.details}</p>
+      <h3>Class Name: {props.details.name}</h3>
+      <p>Location: {props.details.location}</p>
+      <p>Date: {props.details.classDate}</p>
+      <p>Time: {props.details.startTime}</p>
+      <p>Class Type: {props.details.type}</p>
+      <p>Duration: {props.details.duration}</p>
+      <p>IntensityLevel: {props.details.level_name}</p>
+      <p>Current Attendees Number: {props.details.currentRegistered}</p>
+      <p>Max Size: {props.details.maxClassSize}</p>
+      <p>Instuctor: {props.details.Instructor}</p> 
 
 
-      { authCode === 222 &&< button onClick={e => { editClass() }}> Edit </button>}
+       { authCode === 222 &&< button onClick={e => { editClass() }}> Edit </button>}
       {editing && <EditClasses details={props.details} saveEdit={saveEdit} />}
-      {/* <button onClick={e => { editClass(id) }}>Edit</button> */}
-      { authCode === 222 &&<button onClick={e => { deleteClass() }}>Delete</button>}
+      
       { authCode === 111 &&<button onClick={e => { addClass() }}>Add Class</button>}
-      { authCode === 111 &&<button onClick={e => { removeClass() }}>Remove Class</button>}
+      { authCode === 111 &&<button onClick={e => { removeClass() }}>Remove Class</button>} 
+      { authCode === 222 &&<button onClick={e => { deleteClass() }}>Delete</button>}
     </div>
   );
 }
 const mapStateToProps = state => {
-  console.log(state)
+  
   return{
     classes:state.classes,
     isFetching: state.isFetching

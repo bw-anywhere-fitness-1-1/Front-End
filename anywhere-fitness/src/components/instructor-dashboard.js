@@ -12,7 +12,7 @@ const IDashboard = () => {
                 setMyClasses(res.data.data)
             })
         
-    })
+    }, [])
 
     return (
         <div>
