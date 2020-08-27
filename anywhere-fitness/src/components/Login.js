@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import Input from './Input';
 import * as yup from 'yup';
-import axios from 'axios';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { connect } from 'react-redux'
 import { login } from '../store/actions/index'
+import { useHistory } from 'react-router-dom'
+import jwt_decode from 'jwt-decode'
 
 const Login = props => {
   const defaultState = {
@@ -14,7 +15,7 @@ const Login = props => {
   const [formState, setFormState] = useState(defaultState);
   const [errors, setErrors] = useState({ ...defaultState});
   // const [buttonDisabled, setButtonDisabled] = useState(true);
-
+const history = useHistory()
   let formSchema = yup.object().shape({
     username: yup.string().required('Please provide name.'),
     email: yup
@@ -36,10 +37,13 @@ const Login = props => {
   const formSubmit = (e) => {
     e.preventDefault();
     props.login({ username: formState.username, password: formState.password })
-    // axios
-    //   .post("/auth/login", { username: formState.username, password: formState.password })
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err))
+    const { authCode } = jwt_decode(localStorage.getItem('token'));
+    console.log(authCode)
+             if (authCode === 222) {
+                        history.push('/instructor-dashboard')
+                    } else if (authCode === 111) {
+                        history.push('/client-dashboard')
+                    }
   };
 
   const validateChange = e => {

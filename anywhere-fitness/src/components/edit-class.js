@@ -1,24 +1,41 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
+// make a get request to /classes/:classID
+// setFormState() w/ the object you get as a response
+// setFormState({id: res.data.id, name: res.data.name ...})
 
+const initialForm = {
+    
+    name: '',
+    classDate: '',
+    startTime: '',
+    duration: '',
+    type: '',
+    intensityLevel: '',
+    location: '',
+    currentRegistered: 0,
+    maxClassSize: 0,
+    instructor: ''
+}
 
 const EditClasses = (props) => {
-    const [formState, setFormState] = useState({
-        id: props.details.id,
-        name: props.details.name,
-        date: props.details.date,
-        time: props.details.time,
-        duration: props.details.duration,
-        type: props.details.type,
-        intensityLevel: props.details.intensityLevel,
-        location: props.details.location,
-        currentAttendeesNo: props.details.currentAttendeesNo,
-        maxsize: props.details.maxsize,
-    })
+    const [formState, setFormState] = useState(initialForm)
 
     const inputChange = e => {
         e.persist()
         setFormState({ ...formState, [e.target.name]: e.target.value })
     }
+
+    useEffect(()=> {
+        axiosWithAuth()
+        .get('/classes/:classID')
+        .then(res => setFormState({id: res.id, name: res.name, date: res.date, time: res.time, duration: res.duration, type: res.type, intensityLevel: res.intensityLevel, location: res.location, maxClassSize: res.maxClassSize, currentRegistered: res.currentRegistered, instructor:res.instructor}))
+
+
+        // axiosWithAuth.get('clases/:classID')
+        // response --> {id, name, date, time ....}
+        // .then(res => setFormState({id: res.id, name: res.name....}))
+    }, [])
 
     return (
         <div>

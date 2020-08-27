@@ -1,5 +1,5 @@
 {
-  "name": "anywehre-fitness",
+  "name": "anywhere-fitness",
   "version": "0.1.0",
   "private": true,
   "proxy": "https://bw-fitness-anywhere.herokuapp.com/api",
