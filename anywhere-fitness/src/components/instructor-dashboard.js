@@ -1,15 +1,23 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import CreateClass from './create-class'
-import EditClasses from './edit-class'
+import WorkoutCard from './workout-list'
+import {axiosWithAuth} from '../utils/axiosWithAuth'
 
 const IDashboard = () => {
+    const [myClasses, setMyClasses] = useState([])
+    useEffect(() => {
+        axiosWithAuth()
+            .get('/classes')
+            .then((res) => {
+                setMyClasses(res.data.data)
+            })
+        
+    })
 
     return (
         <div>
-            <h2>Create A Class</h2>
-            <CreateClass />
-            <h2>Edit Class</h2>
-            <EditClasses />
+           <WorkoutCard />
+           <CreateClass />
         </div>
     )
 }

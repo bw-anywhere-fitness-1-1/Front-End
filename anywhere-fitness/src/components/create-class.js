@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
-import axiosWithAuth from 'axios'
+import {axiosWithAuth} from '../utils/axiosWithAuth'
+import {connect} from 'react-redux' 
 
 
 const formSchema = yup.object().shape({
@@ -221,4 +222,13 @@ const CreateClass = (props) => {
         </div>
     )
 }
-export default CreateClass 
+const mapStateToProps = (state) => {
+
+    return {
+        formState: state.ClassesReducer.formState
+
+
+    }
+}
+
+export default connect(mapStateToProps, {})(CreateClass);

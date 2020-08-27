@@ -1,8 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ClassCard from './class-card'
+import {axiosWithAuth} from '../utils/axiosWithAuth'
 
 const WorkoutCard = () => {
     const [classes, setClasses] = useState([]);
+    useEffect(()=> {
+        axiosWithAuth()
+        .get("/classes':classID")
+        .then((res) => {
+            setClasses(res.data.data)
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    })
     return ( 
         <div>
             <h2>Welcome Back</h2>
