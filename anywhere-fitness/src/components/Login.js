@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Input from './Input';
 import * as yup from 'yup';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { connect } from 'react-redux'
 import { login } from '../store/actions/index'
 import { useHistory } from 'react-router-dom'

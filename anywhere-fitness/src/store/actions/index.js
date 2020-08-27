@@ -1,5 +1,5 @@
 import { axiosWithAuth } from '../../utils/axiosWithAuth'
-import jwt_decode from "jwt-decode";
+
 
 
 
@@ -50,4 +50,10 @@ export const getClasses = (dispatch) => {
     dispatch({ type: GET_CLASSES_START })
     return axiosWithAuth()
         .get('/classes')
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((err) =>{
+            console.log(err)
+        })
 }

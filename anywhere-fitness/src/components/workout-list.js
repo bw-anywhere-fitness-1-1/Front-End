@@ -6,14 +6,14 @@ const WorkoutCard = () => {
     const [classes, setClasses] = useState([]);
     useEffect(()=> {
         axiosWithAuth()
-        .get("/classes':classID")
+        .get("/classes")
         .then((res) => {
             setClasses(res.data.data)
         })
         .catch((err) => {
             console.log(err);
         })
-    })
+    },[])
     return ( 
         <div>
             <h2>Welcome Back</h2>
