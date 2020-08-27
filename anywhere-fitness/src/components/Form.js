@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Input from './Input';
 import * as yup from 'yup';
 import axios from 'axios';
+import {useHistory} from 'react-router-dom'
 
 export default function Form() {
   const defaultState = {
@@ -14,6 +15,7 @@ export default function Form() {
   const [formState, setFormState] = useState(defaultState);
   const [errors, setErrors] = useState({ ...defaultState, terms: '' });
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const history = useHistory()
 
   
   let formSchema = yup.object().shape({
@@ -37,7 +39,11 @@ export default function Form() {
     console.log('form submitted!');
     axios
       .post('/auth/register', correctFormState)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res)
+        localStorage.setItem("token", res.data.payload)
+        history.push('/')
+      })
       .catch(err => console.log(err));
   };
 
