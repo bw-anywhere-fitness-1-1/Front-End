@@ -32,7 +32,7 @@ export default function Form() {
     }
   }, [formState]);
 
-  const correctFormState = { username: formState.username , password: formState.password, email: formState.email, authCode: 222 }
+  const correctFormState = { username: formState.username , password: formState.password, email: formState.email, authCode: formState.authCode }
 
   const formSubmit = e => {
     e.preventDefault();
@@ -66,6 +66,12 @@ export default function Form() {
     });
     validateChange(e);
   };
+  const roleChange = e => {
+    setFormState({
+      ...formState,
+      authCode: parseInt(e.target.value, 10)
+    })
+  }
 
   return (
     <form onSubmit={formSubmit}>
@@ -74,7 +80,7 @@ export default function Form() {
         name='username'
         onChange={inputChange}
         value={formState.username}
-        label='Name'
+        label='Username'
         errors={errors}
       />
       <Input
@@ -95,7 +101,7 @@ export default function Form() {
       />
       <label htmlFor='position'>
         What role are you interested in?
-        <select name='authCode' onChange={inputChange}>
+        <select name='authCode' onChange={roleChange}>
           <option value='222'>Instructor</option>
           <option value='111'>Client</option>
         </select>
