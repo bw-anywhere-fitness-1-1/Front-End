@@ -46,12 +46,13 @@ export const login = (user) => (dispatch) => {
         );
 };
 
-export const getClasses = (dispatch) => {
+export const getClasses= () => (dispatch) => {
     dispatch({ type: GET_CLASSES_START })
     return axiosWithAuth()
         .get('/classes')
         .then((res) => {
             console.log(res)
+            // dispatch({ type: GET_CLASSES_SUCCESS payload: })
         })
         .catch((err) =>{
             console.log(err)

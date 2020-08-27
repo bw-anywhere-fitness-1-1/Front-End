@@ -5,25 +5,25 @@ import {connect} from 'react-redux'
 
 
 const formSchema = yup.object().shape({
-    classname: yup.string()
+    name: yup.string()
         .min(5, 'must include more than 5 characters')
         .required('must include class name'),
-    time: yup.string()
+    startTime: yup.string()
         .min(1, 'must include atleast 1 characters')
         .required('Time is required'),
-    date: yup.string()
+    classDate: yup.string()
         .required('must select a date'),
     duration: yup.string()
         .required('must select duration'),
-    classtype: yup.string()
+    type: yup.string()
         .required('must select a type'),
     intensityLevel: yup.string()
         .required('must select an intensity'),
     location: yup.string()
         .required('must select a location'),
-    currentAttendeesNo: yup.number()
-        .min(1, 'Number must be greater than 0').required(),
-    maxsize: yup.number()
+    currentRegistered: yup.number()
+        .min(0, 'Number must be greater than 0').required(),
+    maxClassSize: yup.number()
         .min(1, 'number must be greater than 0').required(),
 })
 
@@ -44,6 +44,7 @@ const CreateClass = (props) => {
     })
     const savePost = e => {
         e.preventDefault()
+        console.log(formState)
         axiosWithAuth()
         .post('https://bw-fitness-anywhere.herokuapp.com/api/classes',formState )
         .then( res => {
@@ -59,8 +60,8 @@ const CreateClass = (props) => {
         type: '*',
         intensityLevel: '*',
         location: '*',
-        currentRegistered: '*',
-        maxClassSize: '*',
+        currentRegistered: 0,
+        maxClassSize: 0,
         instructor: '*'
     })
     const validate = (e) => {
@@ -87,9 +88,17 @@ const CreateClass = (props) => {
         e.persist()
         validate(e)
         setformState({ ...formState, [e.target.name]: e.target.value })
+        
     }
+    const roleChange = e => {
+        setformState({
+          ...formState,
+          [e.target.name]: parseInt(e.target.value, 10)
+        })
+      }
     return (
         <div>
+        <pre>{JSON.stringify(formState, null, 2)}</pre>
             <form >
                 <div>
                     <div>
@@ -99,8 +108,8 @@ const CreateClass = (props) => {
                             Class name:
                         <input
                                 type='text'
-                                name='classname'
-                                id='classname'
+                                name='name'
+                                id='name'
                                 placeholder='Create Class Name'
                                 value={formState.classname}
                                 onChange={inputChange}
@@ -112,8 +121,8 @@ const CreateClass = (props) => {
                             Date:
                         <input
                                 type='text'
-                                name='date'
-                                id='date'
+                                name='classDate'
+                                id='classDate'
                                 placeholder='Enter Date'
                                 value={formState.date}
                                 onChange={inputChange}
@@ -124,8 +133,8 @@ const CreateClass = (props) => {
                             Time:
                         <input
                                 type='text'
-                                name='time'
-                                id='time'
+                                name='startTime'
+                                id='startTime'
                                 placeholder='Enter Time'
                                 value={formState.time}
                                 onChange={inputChange}
@@ -151,8 +160,8 @@ const CreateClass = (props) => {
                             Type:
                         <select
                                 value={formState.classtype}
-                                name='classtype'
-                                id='classtype'
+                                name='type'
+                                id='type'
                                 onChange={inputChange}>
                                 <option value=''>N/A</option>
                                 <option value='Cardio'>Cardio</option>
@@ -196,11 +205,11 @@ const CreateClass = (props) => {
                             Current members:
                         <input
                                 type='number'
-                                name='currentAttendeesNo'
-                                id='currentAttendeesNo'
+                                name='currentRegistered'
+                                id='currentRegistered'
                                 placeholder='0'
                                 value={formState.currentAttendeesNo}
-                                onChange={inputChange}
+                                onChange={roleChange}
                             />
                             {errorState.currentAttendeesNo ? <p>{errorState.currentAttendeesNo}</p> : null}
                     </label>
@@ -208,11 +217,11 @@ const CreateClass = (props) => {
                             Maximum members:
                         <input
                                 type='number'
-                                name='maxsize'
-                                id='maxsize'
+                                name='maxClassSize'
+                                id='maxClassSize'
                                 placeholder='0'
                                 value={formState.maxsize}
-                                onChange={inputChange}
+                                onChange={roleChange}
                             />
                             {errorState.maxsize ? <p>{errorState.maxsize}</p> : null}
                     </label>
