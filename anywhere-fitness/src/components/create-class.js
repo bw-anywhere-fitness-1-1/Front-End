@@ -25,6 +25,10 @@ const formSchema = yup.object().shape({
         .min(0, 'Number must be greater than 0').required(),
     maxClassSize: yup.number()
         .min(1, 'number must be greater than 0').required(),
+    Instructor: yup.string()
+    .min(1, 'must include at least 1 character'),
+    Gender: yup.string()
+    .min(1, 'minimum of 1 character')
 })
 
 
@@ -40,7 +44,8 @@ const CreateClass = (props) => {
         location: '',
         currentRegistered: 0,
         maxClassSize: 0,
-        instructor: ''
+        Instructor: '',
+        Gender: ''
     })
     const savePost = e => {
         e.preventDefault()
@@ -62,7 +67,8 @@ const CreateClass = (props) => {
         location: '*',
         currentRegistered: 0,
         maxClassSize: 0,
-        instructor: '*'
+        Instructor: '*',
+        Gender: '*'
     })
     const validate = (e) => {
         yup.reach(formSchema, e.target.name).validate(e.target.value)
@@ -98,7 +104,7 @@ const CreateClass = (props) => {
       }
     return (
         <div>
-        <pre>{JSON.stringify(formState, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(formState, null, 2)}</pre> */}
             <form >
                 <div>
                     <div>
@@ -111,10 +117,10 @@ const CreateClass = (props) => {
                                 name='name'
                                 id='name'
                                 placeholder='Create Class Name'
-                                value={formState.classname}
+                                value={formState.name}
                                 onChange={inputChange}
                             />
-                            {errorState.classname ? <p>{errorState.classname}</p> : null}
+                            {errorState.name ? <p>{errorState.name}</p> : null}
      
                     </label>
                     <label htmlFor='date'>
@@ -124,10 +130,10 @@ const CreateClass = (props) => {
                                 name='classDate'
                                 id='classDate'
                                 placeholder='Enter Date'
-                                value={formState.date}
+                                value={formState.classDate}
                                 onChange={inputChange}
                             />
-                            {errorState.date ? <p>{errorState.date}</p> : null}
+                            {errorState.classDate ? <p>{errorState.classDate}</p> : null}
                     </label>
                     <label htmlFor='time'>
                             Time:
@@ -136,10 +142,10 @@ const CreateClass = (props) => {
                                 name='startTime'
                                 id='startTime'
                                 placeholder='Enter Time'
-                                value={formState.time}
+                                value={formState.startTime}
                                 onChange={inputChange}
                             />
-                            {errorState.time ? <p>{errorState.time}</p> : null}
+                            {errorState.startTime ? <p>{errorState.startTime}</p> : null}
                     </label>
                     <label htmlFor='duration'>
                             Duration:
@@ -159,7 +165,7 @@ const CreateClass = (props) => {
                     <label htmlFor='classtype'>
                             Type:
                         <select
-                                value={formState.classtype}
+                                value={formState.type}
                                 name='type'
                                 id='type'
                                 onChange={inputChange}>
@@ -172,7 +178,7 @@ const CreateClass = (props) => {
                                 <option value='Zumba'>Zumba</option>
                                 <option value='Turbo-Kick'>Turbo-Kick</option>
                             </select>
-                            {errorState.type ? <p>{errorState.classtype}</p> : null}
+                            {errorState.type ? <p>{errorState.type}</p> : null}
                     </label>
                     <label htmlFor='intensityLevel'>
                             Intensity:
@@ -208,10 +214,10 @@ const CreateClass = (props) => {
                                 name='currentRegistered'
                                 id='currentRegistered'
                                 placeholder='0'
-                                value={formState.currentAttendeesNo}
+                                value={formState.currentRegistered}
                                 onChange={roleChange}
                             />
-                            {errorState.currentAttendeesNo ? <p>{errorState.currentAttendeesNo}</p> : null}
+                            {errorState.currentRegistered ? <p>{errorState.currentRegistered}</p> : null}
                     </label>
                     <label htmlFor='maxsize'>
                             Maximum members:
@@ -220,11 +226,37 @@ const CreateClass = (props) => {
                                 name='maxClassSize'
                                 id='maxClassSize'
                                 placeholder='0'
-                                value={formState.maxsize}
+                                value={formState.maxClassSize}
                                 onChange={roleChange}
                             />
-                            {errorState.maxsize ? <p>{errorState.maxsize}</p> : null}
+                            {errorState.maxClassSize ? <p>{errorState.maxClassSize}</p> : null}
+                            
                     </label>
+                    <label htmlFor='instructor'>
+                            Instructor:
+                        <input
+                                type='text'
+                                name='Instructor'
+                                id='Instructor'
+                                value={formState.Instructor}
+                                onChange={inputChange}
+                            />
+                            {errorState.Instructor ? <p>{errorState.Instructor}</p> : null}
+                            
+                    </label>
+                    <label htmlFor='gender'>
+                           Gender:
+                        <input
+                                type='text'
+                                name='Gender'
+                                id='Gender'
+                                value={formState.Gender}
+                                onChange={inputChange}
+                            />
+                            {errorState.Gender ? <p>{errorState.Gender}</p> : null}
+                            
+                    </label>
+                    
                 </div>
                 <button  disabled={isDisabled} onClick={savePost}>Submit</button>
             </form>

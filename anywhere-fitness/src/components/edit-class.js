@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
+import { useParams, useHistory } from 'react-router-dom'
 // make a get request to /classes/:classID
 // setFormState() w/ the object you get as a response
 // setFormState({id: res.data.id, name: res.data.name ...})
@@ -19,27 +20,60 @@ const initialForm = {
 }
 
 const EditClasses = (props) => {
+    const id = useParams().id
+    const history = useHistory()
     const [formState, setFormState] = useState(initialForm)
+    const [editing, setEditing] = useState(false)
 
     const inputChange = e => {
         e.persist()
         setFormState({ ...formState, [e.target.name]: e.target.value })
     }
 
-    useEffect(()=> {
-        axiosWithAuth()
-        .get('/classes/:classID')
-        .then(res => setFormState({id: res.id, name: res.name, date: res.date, time: res.time, duration: res.duration, type: res.type, intensityLevel: res.intensityLevel, location: res.location, maxClassSize: res.maxClassSize, currentRegistered: res.currentRegistered, instructor:res.instructor}))
 
+
+    const submitForm = e => {
+        if(editing) {
+            axiosWithAuth()
+            .put(`/classes/${id}`, formState)
+            .then((res => {
+                setEditing(false)
+                //history.push('/instructor-dashboard')
+            }
+            ))
+            .catch(err=> console.log(err))
+        } else {
+            axiosWithAuth()
+            .post(`/classes/${id}`, formState)
+            .then((res => {
+                console.log(res)
+            }))
+           .catch(err=> console.log(err))
+        }
+        history.push('/instructor-dashboard')
+    }
+
+    useEffect(()=> {
+    
+        axiosWithAuth()
+        .get(`/classes/${id}`)
+        .then(res => {
+            console.log(res.data.data)
+            setFormState(res.data.data)
+            setEditing(true)
+        })
+        .catch(err=>console.log(err))
 
         // axiosWithAuth.get('clases/:classID')
         // response --> {id, name, date, time ....}
         // .then(res => setFormState({id: res.id, name: res.name....}))
     }, [])
 
+
+
     return (
         <div>
-            <form >
+            <form onSubmit={submitForm}>
                 <div>
                     <div>
                         <h2>Edit Class</h2>
@@ -48,10 +82,10 @@ const EditClasses = (props) => {
                             Class name:
                         <input
                                 type="text"
-                                name="classname"
+                                name="name"
                                 id="classname"
                                 placeholder="Create Class Name"
-                                value={formState.classname}
+                                value={formState.name}
                                 onChange={inputChange}
                             />
                     </label>
@@ -60,39 +94,37 @@ const EditClasses = (props) => {
                             Date:
                         <input
                                 type="text"
-                                name="date"
+                                name="classDate"
                                 id="date"
                                 placeholder="Enter Date"
-                                value={formState.date}
+                                value={formState.classDate}
                                 onChange={inputChange}
                             />
                     </label>
                     <label htmlFor="duration">
                             Duration:
-                        <select
-                                value={formState.duration}
+                            <input
+                                type="text"
                                 name="duration"
-                                id="duration"
-                                onChange={inputChange}>
-                                <option value="">N/A</option>
-                                <option value=".5h">30 minutes</option>
-                                <option value="1h">1 hour</option>
-                                <option value="1.5h">1 1/5 hours</option>
-                                <option value="2h">2 hours</option>
-                            </select>
+                                id="date"
+                                placeholder="Class Duration"
+                                value={formState.duration}
+                                onChange={inputChange}
+                            />
+                       
                     </label>
                     <label htmlFor="classtype">
                             Type:
                         <select
-                                value={formState.classtype}
-                                name="classtype"
+                                value={formState.type}
+                                name="type"
                                 id="classtype"
                                 onChange={inputChange}>
                                 <option value="">N/A</option>
-                                <option value="Cardio">Cardio</option>
-                                <option value="Legs">Legs minutes</option>
-                                <option value="Arms">Arms</option>
-                                <option value="Chest">Chest</option>
+                                <option value="cardio">Cardio</option>
+                                <option value="legs">Legs minutes</option>
+                                <option value="arms">Arms</option>
+                                <option value="weightlifting">Strength</option>
                                 <option value="Yoga">Yoga</option>
                                 <option value="Zumba">Zumba</option>
                                 <option value="Turbo-Kick">Turbo-Kick</option>
@@ -129,10 +161,10 @@ const EditClasses = (props) => {
                             Current:
                         <input
                                 type="number"
-                                name="currentAttendeesNo"
+                                name="currentRegistered"
                                 id="currentAttendeesNo"
                                 placeholder="0"
-                                value={formState.currentAttendeesNo}
+                                value={formState.currentRegistered}
                                 onChange={inputChange}
                             />
                     </label>
@@ -140,15 +172,15 @@ const EditClasses = (props) => {
                             Maximum:
                         <input
                                 type="number"
-                                name="maxsize"
+                                name="maxClassSize"
                                 id="maxsize"
                                 placeholder="0"
-                                value={formState.maxsize}
+                                value={formState.maxClassSize}
                                 onChange={inputChange}
                             />
                     </label>
                 </div>
-                <button disabled={false}>Confirm Edit</button>
+                <button disabled={false} type="submit">Confirm Edit</button>
                 {/* <ToastsContainer store={ToastsStore} /> */}
             </form>
 

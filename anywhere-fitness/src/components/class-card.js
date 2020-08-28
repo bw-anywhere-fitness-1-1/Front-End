@@ -4,50 +4,55 @@ import {axiosWithAuth} from '../utils/axiosWithAuth'
 import EditClasses from './edit-class'
 import { connect } from 'react-redux'
 import { getClasses } from '../store/actions/index'
+import { useParams } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 function ClassCard(props) {
-
-  const [editing, setEditing] = useState(false)
+  const id = useParams().id
+  console.log(props)
+  
   const [classToEdit, setClassToEdit] = useState(props)
   const token = localStorage.getItem('token')
   const {authCode} = jwt_decode(token)
 
-  const editClass = id => {
-    setEditing(true)
-    setClassToEdit(id)
-    axiosWithAuth(classToEdit)
-      .get('/classes/:classID')
-      .then((res) => {
-        console.log(res.data.data);
-        setClassToEdit(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const editClass = () => {
+  //   setEditing(true)
+  //   axiosWithAuth()
+  //     .put(`/classes/${id}`, classToEdit)
+  //     .then((res) => {
+  //       console.log(res.data.data);
+  //       setClassToEdit(res.data.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
-  const saveEdit = e => {
-    e.preventDefault();
-    axiosWithAuth()
-    .put(`class.${classToEdit.id}`, classToEdit)
-      .then(() => { window.location.reload() })
-      .catch(err => console.log(err))
-    setEditing(false)
-  }
-  const deleteClass = e => {
-    axiosWithAuth().delete(`/classes/:classID`, classToEdit)
+  // const saveEdit = e => {
+  //   e.preventDefault();
+    
+  //   axiosWithAuth()
+  //   .put(`/classes/${classToEdit.id}`, classToEdit)
+  //     .then(() => { window.location.reload() })
+  //     .catch(err => console.log(err))
+  //   setEditing(false)
+  
+  // }
+  
+  const deleteClass = (id) => {
+    axiosWithAuth().delete(`/classes/${id}`)
       .then((res) => { window.location.reload() })
       .catch((err) => console.log(err))
   }
 
   const addClass = e => {
-    axiosWithAuth().post('/classes/:classID')
+    axiosWithAuth().post('/classes')
       .then((res) => { window.location.reload() })
       .catch(err => console.log(err))
   }
 
-  const removeClass = e => {
-    axiosWithAuth().delete('/classes/:classID')
+  const removeClass = id => {
+    axiosWithAuth().delete(`/classes/${id}`)
       .then((res) => { window.location.reload() })
       .catch(err => console.log(err))
   }
@@ -67,21 +72,26 @@ function ClassCard(props) {
       <p>Instuctor: {props.details.Instructor}</p> 
 
 
-       { authCode === 222 &&< button onClick={e => { editClass() }}> Edit </button>}
-      {editing && <EditClasses details={props.details} saveEdit={saveEdit} />}
+       { authCode === 222 || authCode==='' ?
+      <Link to = {`/edit-class/${props.details.id}`}>
+          <button> Edit </button>
+       </Link> : null
+       }
+      {/* {editing && <EditClasses details={props.details} saveEdit={saveEdit} />} */}
       
-      { authCode === 111 &&<button onClick={e => { addClass() }}>Add Class</button>}
-      { authCode === 111 &&<button onClick={e => { removeClass() }}>Remove Class</button>} 
-      { authCode === 222 &&<button onClick={e => { deleteClass() }}>Delete</button>}
+      { authCode === 111 &&<button onClick={e => { addClass(id) }}>Add Class</button>}
+      { authCode === 111 &&<button onClick={e => removeClass(id) }>Remove Class</button>} 
+      { authCode === '' &&<button onClick={e => { deleteClass(props.details.id) }}>Delete</button>}
     </div>
   );
 }
-const mapStateToProps = state => {
+// const mapStateToProps = state => {
   
-  return{
-    classes:state.classes,
-    isFetching: state.isFetching
+//   return{
+//     classes:state.classes,
+//     isFetching: state.isFetching
 
-  }
-}
-export default connect(mapStateToProps, {getClasses})(ClassCard)
+//   }
+// }
+// export default connect(mapStateToProps, {getClasses})(ClassCard)
+export default ClassCard
