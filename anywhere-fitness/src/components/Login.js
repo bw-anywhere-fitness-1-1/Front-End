@@ -33,17 +33,19 @@ const history = useHistory()
   //   }
   // }, [formState]);
 
-  const formSubmit = (e) => {
-    e.preventDefault();
-    props.login({ username: formState.username, password: formState.password })
-    const { authCode } = jwt_decode(localStorage.getItem('token'));
-    console.log(authCode)
-             if (authCode === 222) {
-                        history.push('/instructor-dashboard')
-                    } else if (authCode === 111) {
-                        history.push('/client-dashboard')
-                    }
-  };
+  const formSubmit = async (e) => {
+		e.preventDefault()
+		props.login({ username: formState.username, password: formState.password })
+		setTimeout(() => {
+			const { authCode } = jwt_decode(localStorage.getItem('token'))
+			console.log('AUTHCODE ', authCode)
+			if (authCode === '' || authCode === 222) {
+				history.push('/instructor-dashboard')
+			} else if (authCode === 111) {
+				history.push('/client-dashboard')
+			}
+		}, 3000)
+	}
 
   const validateChange = e => {
 
